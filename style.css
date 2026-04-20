@@ -1,0 +1,659 @@
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pine: #1a2e1a;
+    --forest: #2d4a2d;
+    --snow: #f5f2ee;
+    --glacier: #c8dde0;
+    --amber: #d4843a;
+    --gold: #e8a94a;
+    --sky: #7ab3c0;
+    --stone: #8a7a6a;
+    --charcoal: #2a2420;
+    --cream: #faf7f2;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem;
+    height: 70px;
+    background: rgba(26,46,26,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,221,224,0.15);
+    transition: all 0.3s;
+  }
+  nav.scrolled { background: rgba(26,46,26,0.98); height: 60px; }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 900;
+    color: var(--snow);
+    letter-spacing: 0.5px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(245,242,238,0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transition: transform 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    background: var(--amber); color: white !important;
+    padding: 0.5rem 1.4rem; border-radius: 2px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; letter-spacing: 1.5px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; min-height: 700px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      linear-gradient(160deg, rgba(26,46,26,0.75) 0%, rgba(42,36,32,0.6) 50%, rgba(26,46,26,0.9) 100%),
+      url('https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1800&q=80') center/cover no-repeat;
+    animation: heroZoom 15s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+  .hero-content {
+    position: relative; z-index: 2; text-align: center;
+    padding: 0 2rem;
+    animation: heroFadeIn 1.2s ease-out forwards;
+  }
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tagline {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--snow);
+    text-shadow: 0 2px 40px rgba(0,0,0,0.4);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 1.15rem; color: rgba(245,242,238,0.8);
+    max-width: 560px; margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amber); color: white;
+    padding: 1rem 2.5rem; border: none; cursor: pointer;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(212,132,58,0.4);
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,132,58,0.5); }
+  .btn-outline {
+    background: transparent; color: white;
+    padding: 1rem 2.5rem; border: 2px solid rgba(245,242,238,0.5); cursor: pointer;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(245,242,238,0.5);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll::after {
+    content: ''; display: block;
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(245,242,238,0.5), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* SECTIONS COMMON */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--pine);
+    margin-bottom: 1rem;
+  }
+  .section-title em { color: var(--amber); font-style: italic; }
+  .section-sub {
+    font-size: 1rem; color: var(--stone);
+    line-height: 1.7; max-width: 560px;
+    margin-bottom: 3rem;
+  }
+
+  /* ACTIVITIES NAV STRIP */
+  .activities-strip {
+    background: var(--pine);
+    padding: 0;
+  }
+  .activities-strip-inner {
+    display: flex; overflow-x: auto;
+    gap: 0; scrollbar-width: none;
+  }
+  .activities-strip-inner::-webkit-scrollbar { display: none; }
+  .activity-tab {
+    flex: 1; min-width: 140px;
+    padding: 1.2rem 1.5rem;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.4rem;
+    cursor: pointer; text-decoration: none;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .activity-tab:hover { background: rgba(255,255,255,0.08); }
+  .activity-tab .tab-icon { font-size: 1.5rem; }
+  .activity-tab span {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; font-size: 0.78rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(245,242,238,0.75);
+  }
+  .activity-tab:hover span { color: var(--gold); }
+
+  /* VEHICLE BOOKING */
+  #vehicles { background: var(--cream); }
+  .vehicles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .vehicle-card {
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(26,46,26,0.08);
+    transition: all 0.3s;
+    position: relative;
+    
+  }
+  .vehicle-img {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+  
+  .vehicle-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(26,46,26,0.15); }
+  
+  .vehicle-img img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+  .vehicle-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--amber); color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.72rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; border-radius: 2px;
+  }
+  .vehicle-body { padding: 1.5rem; }
+  .vehicle-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--pine); margin-bottom: 0.3rem;
+  }
+  .vehicle-type {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--stone);
+    margin-bottom: 1rem;
+  }
+  .vehicle-specs {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+  .spec {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-size: 0.82rem; color: var(--stone);
+  }
+  .spec-icon { font-size: 0.9rem; }
+  .vehicle-price {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--pine); margin-bottom: 1.2rem;
+  }
+  .vehicle-price small {
+    font-size: 0.78rem; font-weight: 400;
+    color: var(--stone); margin-left: 0.3rem;
+  }
+  .btn-book {
+    width: 100%; padding: 0.85rem;
+    background: var(--pine); color: var(--snow);
+    border: none; cursor: pointer; border-radius: 3px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.9rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .btn-book:hover { background: var(--amber); }
+
+  /* ACTIVITIES SECTION */
+  #activities { background: var(--pine); }
+  #activities .section-title { color: var(--snow); }
+  #activities .section-sub { color: rgba(245,242,238,0.6); }
+  #activities .section-label { color: var(--gold); }
+  .activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .activity-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,221,224,0.12);
+    border-radius: 6px; overflow: hidden;
+    transition: all 0.3s; cursor: pointer;
+    position: relative;
+  }
+  .activity-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .activity-img {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    background: linear-gradient(135deg, rgba(45,74,45,0.8), rgba(26,46,26,0.8));
+    position: relative; overflow: hidden;
+  }
+  .activity-img {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+.activity-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+  .activity-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(26,46,26,0.7));
+  }
+  .activity-body { padding: 1.3rem; }
+  .activity-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--snow); margin-bottom: 0.4rem;
+  }
+  .activity-desc {
+    font-size: 0.85rem; color: rgba(245,242,238,0.6);
+    line-height: 1.6; margin-bottom: 1rem;
+  }
+  .activity-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .activity-price {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--gold);
+  }
+  .activity-duration {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(245,242,238,0.5);
+  }
+  .btn-activity {
+    margin-top: 1rem; width: 100%; padding: 0.7rem;
+    background: transparent; color: var(--gold);
+    border: 1px solid var(--gold); cursor: pointer; border-radius: 3px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .btn-activity:hover { background: var(--gold); color: var(--pine); }
+
+  /* GALLERY */
+  #gallery { background: var(--charcoal); padding: 6rem 4rem; }
+  #gallery .section-title { color: var(--snow); }
+  #gallery .section-label { color: var(--gold); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+  }
+  .gallery-item {
+    border-radius: 4px; overflow: hidden;
+    position: relative; cursor: pointer;
+    background: var(--forest);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    min-height: 200px;
+    transition: all 0.3s;
+  }
+  .gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+  .gallery-item:hover { transform: scale(1.02); }
+ 
+ .gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,46,26,0.8) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 1.5rem;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay span {
+    font-family: 'Playfair Display', serif;
+    color: white; font-size: 1rem; font-style: italic;
+  }
+
+  /* REVIEWS */
+  #reviews { background: var(--snow); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .review-card {
+    background: white;
+    border-radius: 6px;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    position: relative;
+    border-left: 4px solid var(--amber);
+  }
+  .review-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; }
+  .review-text {
+    font-size: 0.92rem; color: var(--charcoal);
+    line-height: 1.7; margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+  .reviewer { display: flex; align-items: center; gap: 0.8rem; }
+  .reviewer-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--glacier);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    color: var(--pine);
+  }
+  .reviewer-info strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--pine); }
+  .reviewer-info small { font-size: 0.78rem; color: var(--stone); }
+  .review-quote {
+    position: absolute; top: 1rem; right: 1.5rem;
+    font-size: 4rem; color: rgba(212,132,58,0.1);
+    font-family: 'Playfair Display', serif; line-height: 1;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--forest); }
+  #contact .section-title { color: var(--snow); }
+  #contact .section-label { color: var(--gold); }
+  #contact .section-sub { color: rgba(245,242,238,0.65); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-info { }
+  .contact-detail {
+    display: flex; gap: 1rem; align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+  .contact-icon {
+    width: 46px; height: 46px; flex-shrink: 0;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .contact-detail-text strong {
+    display: block; color: var(--snow);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+  .contact-detail-text span { color: rgba(245,242,238,0.6); font-size: 0.9rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(245,242,238,0.6);
+    font-weight: 600;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(200,221,224,0.15);
+    border-radius: 3px; padding: 0.8rem 1rem;
+    color: var(--snow); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,242,238,0.3); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+  .form-group select option { background: var(--forest); color: white; }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .btn-submit {
+    background: var(--amber); color: white;
+    padding: 1rem; border: none; cursor: pointer; border-radius: 3px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: all 0.25s;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--gold); transform: translateY(-1px); }
+
+  /* BOOKING SECTION */
+  #booking { background: var(--cream); }
+  .booking-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+  .booking-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--pine); margin-bottom: 1rem;
+  }
+  .booking-info p { color: var(--stone); line-height: 1.7; margin-bottom: 2rem; }
+  .booking-steps { list-style: none; }
+  .booking-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  .step-num {
+    width: 34px; height: 34px; flex-shrink: 0;
+    background: var(--pine); color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .step-text strong { display: block; color: var(--pine); margin-bottom: 0.2rem; }
+  .step-text span { font-size: 0.85rem; color: var(--stone); }
+
+  .booking-form-card {
+    background: white;
+    border-radius: 8px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 40px rgba(26,46,26,0.1);
+  }
+  .booking-form-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--pine); margin-bottom: 0.3rem;
+  }
+  .booking-form-card p { font-size: 0.85rem; color: var(--stone); margin-bottom: 1.8rem; }
+  .booking-form { display: flex; flex-direction: column; gap: 1rem; }
+  .booking-form .form-group label { color: var(--stone); }
+  .booking-form input, .booking-form select, .booking-form textarea {
+    background: var(--cream); border: 1.5px solid #e5e0d8;
+    border-radius: 3px; padding: 0.8rem 1rem;
+    color: var(--charcoal); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .booking-form input:focus, .booking-form select:focus { border-color: var(--amber); }
+  .booking-form select option { background: white; }
+  .booking-total {
+    background: var(--cream); border-radius: 4px;
+    padding: 1rem 1.2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #e5e0d8;
+  }
+  .booking-total span { font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--stone); }
+  .booking-total strong { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--pine); }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+  .footer-brand { }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--snow); margin-bottom: 1rem; display: block;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-desc { font-size: 0.85rem; color: rgba(245,242,238,0.5); line-height: 1.7; max-width: 280px; }
+  .footer-col h4 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .footer-col a {
+    display: block; color: rgba(245,242,238,0.55);
+    text-decoration: none; font-size: 0.85rem;
+    margin-bottom: 0.6rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--snow); }
+  .footer-bottom {
+    background: rgba(0,0,0,0.3);
+    padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(245,242,238,0.35); }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(26,46,26,0.85); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal {
+    background: white; border-radius: 8px;
+    padding: 2.5rem; max-width: 500px; width: 90%;
+    transform: translateY(20px); transition: transform 0.3s;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-overlay.active .modal { transform: translateY(0); }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: start;
+    margin-bottom: 1.5rem;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: var(--pine);
+  }
+  .modal-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.5rem; color: var(--stone);
+    line-height: 1; padding: 0;
+  }
+  .modal-close:hover { color: var(--pine); }
+  .success-msg {
+    text-align: center; padding: 1rem 0;
+  }
+  .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--pine); margin-bottom: 0.5rem; }
+  .success-msg p { color: var(--stone); font-size: 0.9rem; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 3000;
+    background: var(--pine); color: white;
+    padding: 1rem 1.5rem; border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+    font-size: 0.9rem; letter-spacing: 0.5px;
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.3s;
+    border-left: 4px solid var(--gold);
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    footer { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .booking-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; padding: 1rem 1.5rem; }
+  }
