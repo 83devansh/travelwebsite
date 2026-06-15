@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.travelwithjhechaa.com/sitemap.xml
